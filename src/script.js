@@ -31,7 +31,6 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height);
 
 let time = Date.now();
-let flag = true;
 
 const tick = () => {
   // get delta time
@@ -39,29 +38,8 @@ const tick = () => {
   const deltaTime = currentTime - time;
   time = currentTime;
 
-  console.log("deltaTime:", deltaTime);
-
   // Update object
-  mesh.rotation.y += 0.0075;
-  mesh.rotation.z += 0.0075;
-  mesh.rotation.x += 0.0075;
-
-  // console.log("flag", flag, Math.round(mesh.position.x));
-
-  // if (mesh.position.x < 2 && flag) {
-  //   if (Math.round(mesh.position.x) == 2) {
-  //     flag = false;
-  //   }
-  //   // mesh.position.x += 0.0075;
-  //   // mesh.position.z += 0.01;
-  //   mesh.scale.z += 0.01;
-  //   mesh.scale.y -= 0.01;
-  //   mesh.scale.x += 0.02;
-  // } else {
-  //   if (Math.round(mesh.position.x) == -2) flag = true;
-  //   // mesh.position.x -= 0.0075;
-  //   // mesh.position.z -= 0.01;
-  // }
+  mesh.rotation.y += 0.0005 * deltaTime;
 
   // render
   renderer.render(scene, camera);
