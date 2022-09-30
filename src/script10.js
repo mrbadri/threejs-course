@@ -7,7 +7,7 @@ import gsap from 'gsap';
 /**
  * Debug
  */
-const gui = new dat.GUI({ closed: true, width: 400  });
+const gui = new dat.GUI({ closed: true, width: 400 });
 // gui.hide();
 
 const parameters = {

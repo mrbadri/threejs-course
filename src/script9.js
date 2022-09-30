@@ -1,32 +1,7 @@
 import './style.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import * as dat from 'dat.gui';
-import gsap from 'gsap';
 
-/**
- * Debug
- */
-const gui = new dat.GUI({ closed: true, width: 400  });
-// gui.hide();
-
-const parameters = {
-  color: 0xff0000,
-  spin: () => {
-    gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + 10 });
-    // console.log('Here');
-  },
-};
-
-gui.addColor(parameters, 'color').onChange(() => {
-  material.color.set(parameters.color);
-});
-
-gui.add(parameters, 'spin');
-
-/**
- * Base
- */
 // Canvas
 const canvas = document.querySelector('canvas.webgl');
 
@@ -34,16 +9,47 @@ const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
 
 // Object
-const geometry = new THREE.BoxGeometry(1, 1, 1);
-const material = new THREE.MeshBasicMaterial({ color: parameters.color });
+// const geometry = new THREE.BoxGeometry(1, 1, 1, 2, 2, 2);
+
+const geometry = new THREE.BufferGeometry();
+
+const count = 100;
+const positionArray = new Float32Array(count * 3 * 3);
+
+for (let i = 0; i < count * 3 * 3; i++) {
+  // // positionArray[i] = (Math.random() - 0.5) * 2;
+  // if (i % 3 === 0) positionArray[i] = Math.sin(i) * Math.cos(i) * 5;
+  // else positionArray[i] = Math.sin(i) * Math.cos(i) * 4;
+  positionArray[i] = Math.sin(i) * 100;
+}
+
+const positionAttribute = new THREE.BufferAttribute(positionArray, 3);
+
+geometry.setAttribute('position', positionAttribute);
+
+// ? create triangle width float32Array ---
+// const positionArray = new Float32Array([0, 0, 0, 0, 1, 0, 1, 0, 0]);
+
+// const positionAttribute = new THREE.BufferAttribute(positionArray, 3);
+
+// geometry.setAttribute('position', positionAttribute);
+
+// positionArray[0] = 0;
+// positionArray[1] = 0;
+// positionArray[2] = 0;
+
+// positionArray[3] = 0;
+// positionArray[4] = 1;
+// positionArray[5] = 0;
+
+// positionArray[6] = 1;
+// positionArray[7] = 0;
+// positionArray[8] = 0;
+// ? ---
+
+const material = new THREE.MeshBasicMaterial({ color: 0xff0000, wireframe: true });
 const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
-
-// Debug
-// gui.add(mesh.position, 'y', -3, 3, 0.01);
-gui.add(mesh.position, 'y').min(-3).max(3).step(0.01).name('Elevation');
-gui.add(mesh, 'visible');
-gui.add(mesh.material, 'wireframe');
 
 // Sizes
 const sizes = {
@@ -51,6 +57,7 @@ const sizes = {
   height: window.innerHeight,
 };
 
+// ? NEW CODES
 window.addEventListener('resize', () => {
   // update sizes
   sizes.width = window.innerWidth;
@@ -83,6 +90,8 @@ window.addEventListener('dblclick', () => {
   }
 });
 
+// ? ---
+
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 1, 1000);
 
@@ -112,5 +121,7 @@ const tick = () => {
 tick();
 
 /**
- * Debug UI
+ * triangle in boxGeometry
+ * bufferGeometry
+ * float32Array
  */
