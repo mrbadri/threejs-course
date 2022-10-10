@@ -51,8 +51,8 @@ const textureLoader = new THREE.TextureLoader(loadingManager);
 const texture = textureLoader.load(
   // '/textures/door/color.jpg',
   // '/textures/checkerboard-1024x1024.png',
-  'textures/checkerboard-8x8.png',
-  // 'textures/minecraft.png',
+  // 'textures/checkerboard-8x8.png',
+  'textures/minecraft.png',
   () => {
     console.log('loaded');
   },
