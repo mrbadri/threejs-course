@@ -16,7 +16,19 @@ const geometry = new THREE.BoxGeometry(10, 10, 10);
 
 const material = new THREE.MeshBasicMaterial();
 const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+
+// sphere
+const sphere = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), material);
+sphere.position.x = -1.5;
+
+// plane
+const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
+
+// torus
+const torus = new THREE.Mesh(new THREE.TorusGeometry(0.3, 0.2, 16, 32), material);
+torus.position.x = 1.5;
+
+scene.add(sphere, plane, torus);
 
 // Sizes
 const sizes = {
@@ -60,7 +72,7 @@ window.addEventListener('dblclick', () => {
 // Camera
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 1, 1000);
 
-camera.position.z = 15;
+camera.position.z = 3;
 scene.add(camera);
 
 // Controls
